@@ -1,0 +1,31 @@
+<div class="flex flex-column w-full justify-content-center align-items-center">
+    <h2 class="text-3xl">FormArray</h2>
+      <form [formGroup]="form" (ngSubmit)="onSave()">
+        <div class="flex justify-content-center align-items-center gap-4">
+          <div class="flex max-w-min flex-column w-full justify-content-center align-items-center gap-1">
+            <input type="text" pInputText formControlName="name">
+            <small class="text-red-500" *ngIf="isControlValid('name')">
+              El nombre es requerido
+            </small>
+          </div>
+          <p-button label="Agregar" severity="success" (onClick)="adToGame('name')"/>
+        </div>
+         <div class="flex flex-wrap justify-content-center align-items-center max-w-max gap-3 mt-4" formArrayName="games">
+             <p-card *ngFor="let game of games.controls; let i = index">
+               <div class="flex flex-column w-full justify-content-center align-items-center gap-2">
+                 <div class="flex flex-column justify-content-center align-items-center gap-1">
+                   <input type="text" pInputText [formControlName]="i" />
+                   <small class="text-red-500" *ngIf="isControlValidInFormArray(games, i)">
+                     Este campo es requerido
+                   </small>
+                 </div>
+                 <p-button label="Eliminar" severity="danger"/>
+
+               </div>
+             </p-card>
+         </div>
+        <div class="flex w-full justify-content-center align-items-center mt-6">
+          <p-button type="submit" label="Enviar"></p-button>
+        </div>
+      </form>
+</div>
